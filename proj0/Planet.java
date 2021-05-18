@@ -1,4 +1,4 @@
-public class Body{
+public class Planet{
     double xxPos;
     double yyPos;
     double xxVel;
@@ -6,7 +6,7 @@ public class Body{
     double mass;
     String imgFileName;
     static double G = 6.67e-11;
-    public Body(double xP, double yP, double xV,
+    public Planet(double xP, double yP, double xV,
               double yV, double m, String img){
         xxPos = xP;
         yyPos = yP;
@@ -15,27 +15,27 @@ public class Body{
         mass = m;
         imgFileName = img;
     }
-    public Body(Body b){
+    public Planet(Planet b){
         this(b.xxPos, b.yyPos, b.xxVel, b.yyVel, b.mass, b.imgFileName);
     }
-    public double calcDistance(Body d){
+    public double calcDistance(Planet d){
         return Math.pow(Math.pow(this.xxPos-d.xxPos, 2)+Math.pow(this.yyPos-d.yyPos, 2), 0.5);
     }       
-    public double calcForceExertedBy(Body f){
+    public double calcForceExertedBy(Planet f){
         return G*this.mass*f.mass/Math.pow(this.calcDistance(f), 2);
     }
-    public double calcForceExertedByX(Body fx){
+    public double calcForceExertedByX(Planet fx){
         double dx = fx.xxPos - this.xxPos;
         return this.calcForceExertedBy(fx)*dx/this.calcDistance(fx);
     }
-    public double calcForceExertedByY(Body fy){
+    public double calcForceExertedByY(Planet fy){
         double dy = fy.yyPos - this.yyPos;
         return this.calcForceExertedBy(fy)*dy/this.calcDistance(fy);
     }
 
-    public double calcNetForceExertedByX(Body[] nfx){
+    public double calcNetForceExertedByX(Planet[] nfx){
         double result = 0;
-        for (Body s : nfx) {
+        for (Planet s : nfx) {
             if (s.equals(this))
                 continue;
             result += this.calcForceExertedByX(s);
@@ -43,9 +43,9 @@ public class Body{
         return result;
      }
 
-    public double calcNetForceExertedByY(Body[] nfy){
+    public double calcNetForceExertedByY(Planet[] nfy){
         double result = 0;
-        for (Body s : nfy) {
+        for (Planet s : nfy) {
             if (s.equals(this))
                 continue;
             result += this.calcForceExertedByY(s);

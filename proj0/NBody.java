@@ -5,11 +5,11 @@ public class NBody{
         double radius = in.readDouble();
         return radius;
     }
-    public static Body[] readBodies(String filename){ 
+    public static Planet[] readPlanets(String filename){ 
         In in = new In(filename);
         int n = in.readInt();
         double radius = in.readDouble();
-        Body[] universe = new Body[n];
+        Planet[] universe = new Planet[n];
         for (int i = 0; i < n; i += 1) {                 
            
             /*double xPos = in.readDouble();
@@ -21,7 +21,7 @@ public class NBody{
             Body planet = new Body(xPos, yPos, xVel, yVel, mas,img);
            */
 
-            Body planet = new Body(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble(), in.readString());                    
+            Planet planet = new Planet(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble(), in.readString());                    
             universe[i] = planet;
         }
         return  universe;
@@ -31,12 +31,12 @@ public class NBody{
             double dt = Double.parseDouble(args[1]);
             String filename = args[2];
             double radius = NBody.readRadius(filename);
-            Body[] body = NBody.readBodies(filename);
+            Planet[] body = NBody.readPlanets(filename);
 
             StdDraw.setXscale(-radius, radius);
             StdDraw.setYscale(-radius, radius);
             StdDraw.picture(0, 0, "images/starfield.jpg", 2*radius, 2*radius);
-            for (Body planet : body) {
+            for (Planet planet : body) {
                 planet.draw();
             }
 
@@ -55,7 +55,7 @@ public class NBody{
                         body[i].update(dt, xForcesarray[i], yForcesarray[i]);
                     } 
                     StdDraw.picture(0, 0, "images/starfield.jpg", 2*radius, 2*radius);
-                    for (Body planet : body) {
+                    for (Planet planet : body) {
                         planet.draw();
                     }
                     StdDraw.show();
@@ -69,6 +69,8 @@ public class NBody{
                       body[i].xxPos, body[i].yyPos, body[i].xxVel,
                       body[i].yyVel, body[i].mass, body[i].imgFileName);   
             }
+
     }
 		
+
 }
